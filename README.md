@@ -1,4 +1,4 @@
-# Bottowitzsch
+# Bottowitzsch (Discord-Bot)
 
 Damit Bottowitzsch zum Leben erweckt werden kann muss ihn ein Konfiguration in Form einer Properie-File beim Start übergeben werden!
 
