@@ -1,4 +1,4 @@
-package de.hizr.discord.bottowitzsch;
+package de.hizr.discord.bottowitzsch.eventlistener;
 
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import org.springframework.stereotype.Service;

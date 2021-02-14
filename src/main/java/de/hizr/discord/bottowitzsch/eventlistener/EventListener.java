@@ -1,4 +1,4 @@
-package de.hizr.discord.bottowitzsch;
+package de.hizr.discord.bottowitzsch.eventlistener;
 
 import discord4j.core.event.domain.Event;
 import org.slf4j.Logger;
@@ -10,6 +10,7 @@ public interface EventListener<T extends Event> {
 	Logger LOG = LoggerFactory.getLogger(EventListener.class);
 
 	Class<T> getEventType();
+
 	Mono<Void> execute(T event);
 
 	default Mono<Void> handleError(Throwable error) {

@@ -1,4 +1,4 @@
-package de.hizr.discord.bottowitzsch;
+package de.hizr.discord.bottowitzsch.eventlistener;
 
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
