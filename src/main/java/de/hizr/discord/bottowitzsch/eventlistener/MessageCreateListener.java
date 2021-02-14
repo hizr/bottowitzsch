@@ -24,7 +24,7 @@ public class MessageCreateListener implements EventListener<MessageCreateEvent> 
 	public Mono<Void> execute(MessageCreateEvent event) {
 		return Flux.fromIterable(eventMessageCommands)
 			.filter(messageCommand -> event.getMessage().getContent().startsWith(messageCommand.command()))
-			.flatMap(messageCommand -> messageCommand.execute(event.getMessage()))
+			.flatMap(messageCommand -> messageCommand.execute(event))
 			.then();
 	}
 }
