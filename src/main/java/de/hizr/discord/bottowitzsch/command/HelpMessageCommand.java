@@ -17,7 +17,7 @@ public class HelpMessageCommand implements MessageCommand {
 		return Mono.just(eventMessage.getMessage())
 			.filter(MessageCommand::isMessageFromUser)
 			.flatMap(Message::getChannel)
-			.flatMap(channel -> channel.createMessage("Things to do today:\n - write a bot\n - eat lunch\n - play a game"))
+			.flatMap(channel -> channel.createMessage("Commands:\n !play <youtube-link>\n !join your voice channel"))
 			.then();
 	}
 }

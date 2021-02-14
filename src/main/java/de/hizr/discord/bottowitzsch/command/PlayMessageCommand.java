@@ -1,13 +1,8 @@
 package de.hizr.discord.bottowitzsch.command;
 
-import java.util.Arrays;
-
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import de.hizr.discord.bottowitzsch.scheduler.TrackScheduler;
+import de.hizr.discord.bottowitzsch.player.AudioTrackScheduler;
+import de.hizr.discord.bottowitzsch.player.BottowitzschAudioLoadResultHandler;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
@@ -19,7 +14,8 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class PlayMessageCommand implements MessageCommand {
-	private final TrackScheduler scheduler;
+
+	private final AudioTrackScheduler scheduler;
 	private final AudioPlayerManager playerManager;
 	private final AudioProvider provider;
 
@@ -38,32 +34,13 @@ public class PlayMessageCommand implements MessageCommand {
 			.flatMap(channel -> channel.join(spec -> spec.setProvider(provider)))
 			.then();
 
+		final String[] split = event.getMessage().getContent().split(" ");
+		String link = split[1];
+
 		Mono<Void> playMusic = Mono.justOrEmpty(event.getMessage().getContent())
-			.map(content -> Arrays.asList(content.split(" ")))
-			.doOnNext(command -> playerManager.loadItem(command.get(1), new AudioLoadResultHandler() {
-				@Override
-				public void trackLoaded(final AudioTrack track) {
-					scheduler.play(track);
-				}
-
-				@Override
-				public void playlistLoaded(final AudioPlaylist playlist) {
-					for (AudioTrack track : playlist.getTracks()) {
-						scheduler.play(track);
-					}
-				}
-
-				@Override
-				public void noMatches() {
-
-				}
-
-				@Override
-				public void loadFailed(final FriendlyException exception) {
-
-				}
-			}))
+			.doOnNext(command -> playerManager.loadItem(link, new BottowitzschAudioLoadResultHandler(scheduler)))
 			.then();
-		return Mono.firstWithSignal(joinChannel).then(playMusic);
+
+		return Mono.first(joinChannel).then(playMusic);
 	}
 }

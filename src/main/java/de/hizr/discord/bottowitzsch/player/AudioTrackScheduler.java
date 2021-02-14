@@ -1,4 +1,4 @@
-package de.hizr.discord.bottowitzsch.scheduler;
+package de.hizr.discord.bottowitzsch.player;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -11,12 +11,12 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class TrackScheduler extends AudioEventAdapter {
+public final class AudioTrackScheduler extends AudioEventAdapter {
 
 	private final List<AudioTrack> queue;
 	private final AudioPlayer player;
 
-	public TrackScheduler(final AudioPlayer player) {
+	public AudioTrackScheduler(final AudioPlayer player) {
 		// The queue may be modifed by different threads so guarantee memory safety
 		// This does not, however, remove several race conditions currently present
 		queue = Collections.synchronizedList(new LinkedList<>());
