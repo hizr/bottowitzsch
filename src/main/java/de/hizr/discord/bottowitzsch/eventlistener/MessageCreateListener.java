@@ -21,7 +21,7 @@ public class MessageCreateListener implements EventListener<MessageCreateEvent> 
 	}
 
 	@Override
-	public Mono<Void> execute(MessageCreateEvent event) {
+	public Mono<Void> execute(final MessageCreateEvent event) {
 		return Flux.fromIterable(eventMessageCommands)
 			.filter(messageCommand -> event.getMessage().getContent().startsWith(messageCommand.command()))
 			.flatMap(messageCommand -> messageCommand.execute(event))

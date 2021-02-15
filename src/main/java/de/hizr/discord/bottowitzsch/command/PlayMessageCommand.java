@@ -3,6 +3,7 @@ package de.hizr.discord.bottowitzsch.command;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import de.hizr.discord.bottowitzsch.player.AudioTrackScheduler;
 import de.hizr.discord.bottowitzsch.player.BottowitzschAudioLoadResultHandler;
+import de.hizr.discord.bottowitzsch.player.trackidentifier.TrackIdentifier;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
@@ -18,6 +19,7 @@ public class PlayMessageCommand implements MessageCommand {
 	private final AudioTrackScheduler scheduler;
 	private final AudioPlayerManager playerManager;
 	private final AudioProvider provider;
+	private final TrackIdentifier trackIdentifier;
 
 	@Override
 	public String command() {
@@ -34,11 +36,10 @@ public class PlayMessageCommand implements MessageCommand {
 			.flatMap(channel -> channel.join(spec -> spec.setProvider(provider)))
 			.then();
 
-		final String[] split = event.getMessage().getContent().split(" ");
-		String link = split[1];
-
-		Mono<Void> playMusic = Mono.justOrEmpty(event.getMessage().getContent())
-			.doOnNext(command -> playerManager.loadItem(link, new BottowitzschAudioLoadResultHandler(scheduler)))
+		final Mono<Void> playMusic = Mono.justOrEmpty(event.getMessage().getContent())
+			.doOnNext(command -> playerManager.loadItem(
+				trackIdentifier.identify(event.getMessage().getContent(), this).orElse(""),
+				new BottowitzschAudioLoadResultHandler(scheduler)))
 			.then();
 
 		return Mono.first(joinChannel).then(playMusic);
