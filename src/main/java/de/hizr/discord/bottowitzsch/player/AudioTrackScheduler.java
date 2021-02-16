@@ -8,9 +8,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import org.springframework.stereotype.Component;
 
-@Component
 public final class AudioTrackScheduler extends AudioEventAdapter {
 
 	private final List<AudioTrack> queue;
