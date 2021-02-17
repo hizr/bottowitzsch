@@ -1,6 +1,5 @@
 package de.hizr.discord.bottowitzsch.command;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
 import de.hizr.discord.bottowitzsch.context.GuildContext;
 import de.hizr.discord.bottowitzsch.player.BottowitzschAudioLoadResultHandler;
@@ -8,7 +7,6 @@ import de.hizr.discord.bottowitzsch.player.trackidentifier.TrackIdentifier;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
-import discord4j.voice.AudioProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -18,8 +16,6 @@ import reactor.core.publisher.Mono;
 public class PlayMessageCommand implements MessageCommand {
 
 	private final BottowitzschContext context;
-	private final AudioPlayerManager playerManager;
-	private final AudioProvider provider;
 	private final TrackIdentifier trackIdentifier;
 
 	@Override
@@ -36,12 +32,12 @@ public class PlayMessageCommand implements MessageCommand {
 			.flatMap(VoiceState::getChannel)
 			// join returns a VoiceConnection which would be required if we were
 			// adding disconnection features, but for now we are just ignoring it.
-			.flatMap(channel -> channel.join(spec -> spec.setProvider(provider)))
-			.doOnSuccess(guildContext::setVoiceChannel)
+			.flatMap(channel -> channel.join(spec -> spec.setProvider(guildContext.getAudioProvider())))
+			.doOnSuccess(guildContext::setVoiceConnection)
 			.then();
 
 		final Mono<Void> playMusic = Mono.justOrEmpty(event.getMessage().getContent())
-			.doOnNext(command -> playerManager.loadItemOrdered(
+			.doOnNext(command -> guildContext.getAudioPlayerManager().loadItemOrdered(
 				guildContext,
 				trackIdentifier.identify(event.getMessage().getContent(), this).orElse(""),
 				new BottowitzschAudioLoadResultHandler(guildContext.getTrackScheduler())))
