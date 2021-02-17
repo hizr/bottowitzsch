@@ -24,11 +24,11 @@ public class BottowitzschAudioLoadResultHandler implements AudioLoadResultHandle
 
 	@Override
 	public void noMatches() {
-
+		// nothing to show... it just cant find something to play
 	}
 
 	@Override
 	public void loadFailed(final FriendlyException exception) {
-
+		// nothing to show... it just friendly failed to load the track
 	}
 }

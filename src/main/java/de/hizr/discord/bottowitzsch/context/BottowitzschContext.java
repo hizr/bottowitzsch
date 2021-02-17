@@ -5,10 +5,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import discord4j.common.util.Snowflake;
+import discord4j.core.object.entity.Guild;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
@@ -18,6 +20,10 @@ public class BottowitzschContext {
 
 	private final GuildContextFactory guildContextFactory;
 	private final Map<Snowflake, GuildContext> contextMap = new HashMap<>();
+
+	public Mono<GuildContext> requestGuildContext(Guild guild) {
+		return Mono.just(requestGuildContext(Optional.of(guild.getId())));
+	}
 
 	public GuildContext requestGuildContext(Optional<Snowflake> guildId) {
 		if (guildId.isPresent()) {
