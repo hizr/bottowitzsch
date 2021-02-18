@@ -1,5 +1,8 @@
 package de.hizr.discord.bottowitzsch.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
 import discord4j.core.event.domain.message.MessageCreateEvent;
@@ -13,8 +16,8 @@ public class StopMessageCommand implements MessageCommand {
 	private final BottowitzschContext context;
 
 	@Override
-	public String command() {
-		return "!stop";
+	public List<String> commands() {
+		return Arrays.asList("!stop", "!s");
 	}
 
 	@Override

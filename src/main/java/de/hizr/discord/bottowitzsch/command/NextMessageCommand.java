@@ -1,5 +1,8 @@
 package de.hizr.discord.bottowitzsch.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
 import de.hizr.discord.bottowitzsch.player.AudioTrackScheduler;
 import discord4j.core.event.domain.message.MessageCreateEvent;
@@ -13,8 +16,8 @@ public class NextMessageCommand implements MessageCommand {
 	private final BottowitzschContext context;
 
 	@Override
-	public String command() {
-		return "!next";
+	public List<String> commands() {
+		return Arrays.asList("!next", "!n");
 	}
 
 	@Override

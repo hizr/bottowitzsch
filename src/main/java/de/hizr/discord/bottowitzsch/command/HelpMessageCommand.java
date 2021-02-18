@@ -1,5 +1,8 @@
 package de.hizr.discord.bottowitzsch.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import org.springframework.stereotype.Component;
@@ -8,8 +11,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class HelpMessageCommand implements MessageCommand {
 	@Override
-	public String command() {
-		return "!help";
+	public List<String> commands() {
+		return Arrays.asList("!help", "!h");
 	}
 
 	@Override

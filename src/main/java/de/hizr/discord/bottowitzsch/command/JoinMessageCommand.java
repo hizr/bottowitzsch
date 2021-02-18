@@ -1,5 +1,8 @@
 package de.hizr.discord.bottowitzsch.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
@@ -15,8 +18,8 @@ public class JoinMessageCommand implements MessageCommand {
 	private final BottowitzschContext context;
 
 	@Override
-	public String command() {
-		return "!join";
+	public List<String> commands() {
+		return Arrays.asList("!join", "!j");
 	}
 
 	@Override

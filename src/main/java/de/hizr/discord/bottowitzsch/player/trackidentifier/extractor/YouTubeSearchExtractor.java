@@ -12,7 +12,7 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 
 	@Override
 	public Optional<String> extract(final String message, final MessageCommand command) {
-		final String commandWithSpace = command.command() + " ";
+		final String commandWithSpace = getCommandWithSpace(message, command);
 		if (StringUtils.contains(message, commandWithSpace)) {
 			final String plainMsg = StringUtils.remove(message, commandWithSpace);
 			String value = ResourceUtils.isUrl(plainMsg) ? plainMsg : "ytsearch:" + plainMsg;
@@ -21,5 +21,12 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 		else {
 			return Optional.empty();
 		}
+	}
+
+	private String getCommandWithSpace(final String message, final MessageCommand messageCommand) {
+		return messageCommand.commands().stream()
+			.filter(command -> StringUtils.startsWith(message, command + " "))
+			.findAny()
+			.orElseThrow(() -> new BottowitzschCommandException("Command cant be extracted"));
 	}
 }

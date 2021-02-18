@@ -1,5 +1,8 @@
 package de.hizr.discord.bottowitzsch.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
 import de.hizr.discord.bottowitzsch.context.GuildContext;
 import de.hizr.discord.bottowitzsch.player.BottowitzschAudioLoadResultHandler;
@@ -19,8 +22,8 @@ public class PlayMessageCommand implements MessageCommand {
 	private final TrackIdentifier trackIdentifier;
 
 	@Override
-	public String command() {
-		return "!play";
+	public List<String> commands() {
+		return Arrays.asList("!play", "!p");
 	}
 
 	@Override

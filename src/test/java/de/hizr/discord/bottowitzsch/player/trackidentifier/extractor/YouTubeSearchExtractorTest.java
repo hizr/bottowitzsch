@@ -2,6 +2,7 @@ package de.hizr.discord.bottowitzsch.player.trackidentifier.extractor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import de.hizr.discord.bottowitzsch.command.MessageCommand;
@@ -14,7 +15,7 @@ class YouTubeSearchExtractorTest {
 	@Test
 	public void testExtractor() {
 		val playCommand = Mockito.mock(MessageCommand.class);
-		Mockito.when(playCommand.command()).thenReturn("!play");
+		Mockito.when(playCommand.commands()).thenReturn(Arrays.asList("!play", "!p"));
 
 		val ytExtractor = new YouTubeSearchExtractor();
 		// test
