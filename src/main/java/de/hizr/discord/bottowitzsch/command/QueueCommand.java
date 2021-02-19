@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class QueueMessageCommand implements MessageCommand {
+public class QueueCommand implements Command {
 	private final BottowitzschContext context;
 
 	@Override
@@ -33,7 +33,7 @@ public class QueueMessageCommand implements MessageCommand {
 			.flatMap(scheduler -> Mono.just(scheduler.getQueue()));
 
 		return Mono.just(event.getMessage())
-			.filter(MessageCommand::isMessageFromUser)
+			.filter(Command::isMessageFromUser)
 			.flatMap(Message::getChannel)
 			.flatMap(channel -> channel.createEmbed(spec -> buildQueueMsg(spec, trackList)))
 			.then();
@@ -43,10 +43,11 @@ public class QueueMessageCommand implements MessageCommand {
 		trackList.flatMapMany(Flux::fromIterable)
 			.flatMap(audioTrack -> Mono.just(audioTrack.getInfo()))
 			.flatMap(audioTrackInfo -> Mono.just(creatQueueEntry(audioTrackInfo)))
+			.reduce(String::concat)
 			.subscribe(spec::setDescription);
 	}
 
 	private String creatQueueEntry(final AudioTrackInfo audioTrackInfo) {
-		return audioTrackInfo.title;
+		return audioTrackInfo.title + "\n";
 	}
 }

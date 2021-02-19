@@ -2,7 +2,7 @@ package de.hizr.discord.bottowitzsch.eventlistener;
 
 import java.util.List;
 
-import de.hizr.discord.bottowitzsch.command.MessageCommand;
+import de.hizr.discord.bottowitzsch.command.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class MessageCreateListener implements EventListener<MessageCreateEvent> {
 
-	private final List<MessageCommand> eventMessageCommands;
+	private final List<Command> eventCommands;
 
 	@Override
 	public Class<MessageCreateEvent> getEventType() {
@@ -23,13 +23,13 @@ public class MessageCreateListener implements EventListener<MessageCreateEvent> 
 
 	@Override
 	public Mono<Void> execute(final MessageCreateEvent event) {
-		return Flux.fromIterable(eventMessageCommands)
+		return Flux.fromIterable(eventCommands)
 			.filter(messageCommand -> isMatchingCommand(event.getMessage().getContent(), messageCommand))
 			.flatMap(messageCommand -> messageCommand.execute(event))
 			.then();
 	}
 
-	private boolean isMatchingCommand(final String message, final MessageCommand messageCommand) {
+	private boolean isMatchingCommand(final String message, final Command messageCommand) {
 		return messageCommand.commands()
 			.stream()
 			.anyMatch(command -> StringUtils.startsWith(message, command));

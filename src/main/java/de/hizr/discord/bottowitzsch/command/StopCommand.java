@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class StopMessageCommand implements MessageCommand {
+public class StopCommand implements Command {
 	private final BottowitzschContext context;
 
 	@Override

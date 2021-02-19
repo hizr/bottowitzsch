@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Arrays;
 import java.util.Optional;
 
-import de.hizr.discord.bottowitzsch.command.MessageCommand;
+import de.hizr.discord.bottowitzsch.command.Command;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,7 +14,7 @@ class YouTubeSearchExtractorTest {
 
 	@Test
 	public void testExtractor() {
-		val playCommand = Mockito.mock(MessageCommand.class);
+		val playCommand = Mockito.mock(Command.class);
 		Mockito.when(playCommand.commands()).thenReturn(Arrays.asList("!play", "!p"));
 
 		val ytExtractor = new YouTubeSearchExtractor();

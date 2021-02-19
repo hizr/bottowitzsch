@@ -2,7 +2,7 @@ package de.hizr.discord.bottowitzsch.player.trackidentifier.extractor;
 
 import java.util.Optional;
 
-import de.hizr.discord.bottowitzsch.command.MessageCommand;
+import de.hizr.discord.bottowitzsch.command.Command;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -11,7 +11,7 @@ import org.springframework.util.ResourceUtils;
 public class YouTubeSearchExtractor implements LinkExtractor {
 
 	@Override
-	public Optional<String> extract(final String message, final MessageCommand command) {
+	public Optional<String> extract(final String message, final Command command) {
 		final String commandWithSpace = getCommandWithSpace(message, command);
 		if (StringUtils.contains(message, commandWithSpace)) {
 			final String plainMsg = StringUtils.remove(message, commandWithSpace);
@@ -23,7 +23,7 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 		}
 	}
 
-	private String getCommandWithSpace(final String message, final MessageCommand messageCommand) {
+	private String getCommandWithSpace(final String message, final Command messageCommand) {
 		return messageCommand.commands().stream()
 			.filter(command -> StringUtils.startsWith(message, command + " "))
 			.findAny()
