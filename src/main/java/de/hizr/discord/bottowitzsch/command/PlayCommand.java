@@ -11,6 +11,7 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -28,22 +29,26 @@ public class PlayCommand implements Command {
 
 	@Override
 	public Mono<Void> execute(final MessageCreateEvent event) {
-		final GuildContext guildContext = context.requestGuildContext(event.getGuildId());
+		val guildContext = context.requestGuildContext(event.getGuildId());
+		return Mono.first(joinChannel(event, guildContext))
+			.then(playMusic(event, guildContext));
+	}
 
-		final Mono<Void> joinChannel = Mono.justOrEmpty(event.getMember())
+	private Mono<Void> joinChannel(final MessageCreateEvent event, final GuildContext guildContext) {
+		return Mono.justOrEmpty(event.getMember())
 			.flatMap(Member::getVoiceState)
 			.flatMap(VoiceState::getChannel)
 			.flatMap(channel -> channel.join(spec -> spec.setProvider(guildContext.getAudioProvider())))
 			.doOnSuccess(guildContext::setVoiceConnection)
 			.then();
+	}
 
-		final Mono<Void> playMusic = Mono.justOrEmpty(event.getMessage().getContent())
+	private Mono<Void> playMusic(final MessageCreateEvent event, final GuildContext guildContext) {
+		return Mono.justOrEmpty(event.getMessage().getContent())
 			.doOnNext(command -> guildContext.getAudioPlayerManager().loadItemOrdered(
 				guildContext,
 				trackIdentifier.identify(event.getMessage().getContent(), this).orElse(""),
 				new BottowitzschAudioLoadResultHandler(guildContext.getTrackScheduler())))
 			.then();
-
-		return Mono.first(joinChannel).then(playMusic);
 	}
 }

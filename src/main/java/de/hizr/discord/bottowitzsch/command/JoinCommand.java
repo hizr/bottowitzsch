@@ -28,8 +28,6 @@ public class JoinCommand implements Command {
 		return Mono.justOrEmpty(event.getMember())
 			.flatMap(Member::getVoiceState)
 			.flatMap(VoiceState::getChannel)
-			// join returns a VoiceConnection which would be required if we were
-			// adding disconnection features, but for now we are just ignoring it.
 			.flatMap(channel -> channel.join(spec -> spec.setProvider(guildContext.getAudioProvider())))
 			.then();
 	}
