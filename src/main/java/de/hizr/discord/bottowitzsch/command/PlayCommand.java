@@ -35,7 +35,7 @@ public class PlayCommand implements Command {
 		val guildContext = context.requestGuildContext(event.getGuildId());
 		return Mono.first(joinChannel(event, guildContext))
 			.then(playMusic(event, guildContext))
-			.onErrorContinue((throwable, o) -> helper.handleError(throwable, "Something went wrong play-Command", event));
+			.onErrorContinue((throwable, o) -> helper.handleError(throwable, "Something went wrong with play-Command", event));
 	}
 
 	private Mono<Void> joinChannel(final MessageCreateEvent event, final GuildContext guildContext) {

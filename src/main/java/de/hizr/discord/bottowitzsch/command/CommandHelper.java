@@ -9,10 +9,15 @@ import org.springframework.stereotype.Component;
 public class CommandHelper {
 
 	public void handleError(final Throwable throwable, final String msg, final MessageCreateEvent event) {
-		final String warnMessage = String.format("%s on Guild '%s' with Message from User '%s'",
-		                                         msg,
-		                                         "guildName here" /* Objects.requireNonNull(event.getGuild().block()).getName() */,
-		                                         event.getMessage().getUserData().username());
+		event.getGuild().subscribe(guild -> logException(throwable, msg, event, guild.getName()));
+	}
+
+	private void logException(final Throwable throwable, final String msg, final MessageCreateEvent event, final String guildName) {
+		final String warnMessage = String.format(
+			"%s on Guild '%s' with Message from User '%s'",
+			msg,
+			guildName,
+			event.getMessage().getUserData().username());
 		log.warn(warnMessage, throwable);
 	}
 }
