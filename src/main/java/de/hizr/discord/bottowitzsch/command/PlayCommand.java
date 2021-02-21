@@ -11,16 +11,19 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class PlayCommand implements Command {
 
 	private final BottowitzschContext context;
 	private final TrackIdentifier trackIdentifier;
+	private final CommandHelper helper;
 
 	@Override
 	public List<String> commands() {
@@ -31,7 +34,8 @@ public class PlayCommand implements Command {
 	public Mono<Void> execute(final MessageCreateEvent event) {
 		val guildContext = context.requestGuildContext(event.getGuildId());
 		return Mono.first(joinChannel(event, guildContext))
-			.then(playMusic(event, guildContext));
+			.then(playMusic(event, guildContext))
+			.onErrorContinue((throwable, o) -> helper.handleError(throwable, "Something went wrong play-Command", event));
 	}
 
 	private Mono<Void> joinChannel(final MessageCreateEvent event, final GuildContext guildContext) {

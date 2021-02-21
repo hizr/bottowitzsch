@@ -27,6 +27,6 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 		return messageCommand.commands().stream()
 			.filter(command -> StringUtils.startsWith(message, command + " "))
 			.findAny()
-			.orElseThrow(() -> new BottowitzschCommandException("Command cant be extracted"));
+			.orElseThrow(() -> new BottowitzschCommandException(String.format("Command cant be extracted from message '%s'", message)));
 	}
 }
