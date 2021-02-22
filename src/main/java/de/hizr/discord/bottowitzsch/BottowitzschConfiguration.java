@@ -3,6 +3,7 @@ package de.hizr.discord.bottowitzsch;
 import java.util.List;
 import java.util.Objects;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
@@ -51,7 +52,10 @@ public class BottowitzschConfiguration {
 		final DefaultAudioPlayerManager playerManager = new DefaultAudioPlayerManager();
 		// This is an optimization strategy that Discord4J can utilize.
 		// It is not important to understand
-		playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
+		final AudioConfiguration configuration = playerManager.getConfiguration();
+		configuration.setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
+		configuration.setOpusEncodingQuality(AudioConfiguration.OPUS_QUALITY_MAX);
+		configuration.setResamplingQuality(AudioConfiguration.ResamplingQuality.HIGH);
 
 		// Allow playerManager to parse remote sources like YouTube links
 		AudioSourceManagers.registerRemoteSources(playerManager);
