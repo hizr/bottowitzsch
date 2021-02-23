@@ -10,6 +10,7 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.spec.EmbedCreateSpec;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,6 +19,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class QueueCommand implements Command {
 	private final BottowitzschContext context;
+	private int trackNumber;
 
 	@Override
 	public List<String> commands() {
@@ -26,20 +28,45 @@ public class QueueCommand implements Command {
 
 	@Override
 	public Mono<Void> execute(final MessageCreateEvent event) {
-		final Mono<List<AudioTrack>> trackList = Mono.just(event)
+		return Mono.just(event.getMessage())
+			.filter(Command::isMessageFromUser)
+			.flatMap(Message::getChannel)
+			.flatMap(channel -> channel.createEmbed(spec -> {
+				final Mono<AudioTrackInfo> actualTrack = getActualTrack(event);
+				final Mono<List<AudioTrack>> trackList = getTrackList(event);
+				buildQueueMsg(spec, actualTrack, trackList);
+			}))
+			.then();
+	}
+
+	private Mono<AudioTrackInfo> getActualTrack(final MessageCreateEvent event) {
+		return Mono.justOrEmpty(event)
+			.flatMap(MessageCreateEvent::getGuild)
+			.flatMap(context::requestGuildContext)
+			.flatMap(guildContext -> Mono.justOrEmpty(guildContext.getAudioPlayer().getPlayingTrack()))
+			.flatMap(audioTrack -> Mono.justOrEmpty(audioTrack.getInfo()));
+	}
+
+	private Mono<List<AudioTrack>> getTrackList(final MessageCreateEvent event) {
+		return Mono.just(event)
 			.flatMap(MessageCreateEvent::getGuild)
 			.flatMap(context::requestGuildContext)
 			.flatMap(context -> Mono.just(context.getTrackScheduler()))
 			.flatMap(scheduler -> Mono.just(scheduler.getQueue()));
-
-		return Mono.just(event.getMessage())
-			.filter(Command::isMessageFromUser)
-			.flatMap(Message::getChannel)
-			.flatMap(channel -> channel.createEmbed(spec -> buildQueueMsg(spec, trackList)))
-			.then();
 	}
 
-	private void buildQueueMsg(final EmbedCreateSpec spec, final Mono<List<AudioTrack>> trackList) {
+	private void buildQueueMsg(
+		final EmbedCreateSpec spec,
+		final Mono<AudioTrackInfo> actualTrack,
+		final Mono<List<AudioTrack>> trackList
+	) {
+		actualTrack.subscribe(trackInfo -> {
+			spec.setTitle("Playing: " + getTitle(trackInfo) + " - " + getDurationInMin(trackInfo));
+			spec.setUrl(trackInfo.uri);
+		});
+
+		trackNumber = 1;
+
 		trackList.flatMapMany(Flux::fromIterable)
 			.flatMap(audioTrack -> Mono.just(audioTrack.getInfo()))
 			.flatMap(audioTrackInfo -> Mono.just(creatQueueEntry(audioTrackInfo)))
@@ -47,7 +74,18 @@ public class QueueCommand implements Command {
 			.subscribe(spec::setDescription);
 	}
 
+	private String getTitle(final AudioTrackInfo audioTrackInfo) {
+		final int maxSize = 50;
+		return audioTrackInfo.title.length() > maxSize ? StringUtils.contains(audioTrackInfo.title, maxSize) + "..." : audioTrackInfo.title;
+	}
+
+	private String getDurationInMin(final AudioTrackInfo audioTrackInfo) {
+		final long seconds = (audioTrackInfo.length / 1000) % 60;
+		String tmpSeconds = seconds < 10 ? "0" + seconds : String.valueOf(seconds);
+		return (audioTrackInfo.length / 1000) / 60 + ":" + tmpSeconds;
+	}
+
 	private String creatQueueEntry(final AudioTrackInfo audioTrackInfo) {
-		return audioTrackInfo.title + "\n";
+		return trackNumber++ + " - [" + getTitle(audioTrackInfo) + "](" + audioTrackInfo.uri + ") - [" + getDurationInMin(audioTrackInfo) + "]\n";
 	}
 }
