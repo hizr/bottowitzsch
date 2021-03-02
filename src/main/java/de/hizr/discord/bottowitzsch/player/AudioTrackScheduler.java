@@ -27,6 +27,10 @@ public final class AudioTrackScheduler extends AudioEventAdapter {
 		return queue;
 	}
 
+	public void remove(int index) {
+		queue.remove(index);
+	}
+
 	public boolean play(final AudioTrack track) {
 		return play(track, false);
 	}
