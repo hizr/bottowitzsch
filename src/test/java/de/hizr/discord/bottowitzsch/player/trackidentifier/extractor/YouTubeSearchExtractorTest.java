@@ -23,6 +23,6 @@ class YouTubeSearchExtractorTest {
 		final Optional<String> extract = ytExtractor.extract("!play " + expExtract, playCommand);
 		// assetion
 		assertThat(extract.isPresent()).isTrue();
-		assertThat(extract.get()).isEqualTo(expExtract);
+		assertThat(extract.get()).isEqualTo(" " + expExtract);
 	}
 }
