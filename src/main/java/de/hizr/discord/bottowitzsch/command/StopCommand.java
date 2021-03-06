@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class StopCommand implements Command {
-	public static final String DESCRIPTION = "Stops the current playlist.";
+	public static final String DESCRIPTION = "Stops the current track. Resume playlist/queue with !n/!next.";
 
 	private final BottowitzschContext context;
 
