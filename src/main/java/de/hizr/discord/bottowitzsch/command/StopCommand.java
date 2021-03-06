@@ -13,11 +13,18 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class StopCommand implements Command {
+	public static final String DESCRIPTION = "Stops the current playlist.";
+
 	private final BottowitzschContext context;
 
 	@Override
 	public List<String> commands() {
 		return Arrays.asList("!stop", "!s");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override

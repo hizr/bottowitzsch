@@ -13,11 +13,18 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class ClearCommand implements Command {
+	public static final String DESCRIPTION = "Clears the current playlist.";
+
 	private final BottowitzschContext context;
 
 	@Override
 	public List<String> commands() {
 		return Arrays.asList("!clear", "!c");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override

@@ -10,11 +10,13 @@ import reactor.core.publisher.Mono;
 
 public interface Command {
 	List<String> commands();
+	String description();
 	Mono<Void> execute(MessageCreateEvent event);
 
 	static Boolean isMessageFromUser(final Message message) {
 		return message.getAuthor().map(user -> !user.isBot()).orElse(false);
 	}
+
 	default String getCommandWithSpace(String message) {
 		return commands().stream()
 			.filter(command -> StringUtils.startsWith(message, command + " "))

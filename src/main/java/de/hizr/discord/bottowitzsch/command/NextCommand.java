@@ -13,11 +13,18 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class NextCommand implements Command {
+	public static final String DESCRIPTION = "Plays the next track if there is a playlist/queue. If not... does nothing.";
+
 	private final BottowitzschContext context;
 
 	@Override
 	public List<String> commands() {
 		return Arrays.asList("!next", "!n");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override

@@ -18,12 +18,23 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @Slf4j
 public class RemoveCommand implements Command {
+	public static final String DESCRIPTION
+		= "Removes a track from the playlist!\n\n"
+		  + "Example:\n"
+		  + "'!rm 1' -> Removes the next track if there is a next one.\n"
+		  + "'!rm 3' -> Removes the third following track from the current one.";
+
 	private final BottowitzschContext context;
 	private final CommandHelper helper;
 
 	@Override
 	public List<String> commands() {
-		return Arrays.asList("!rm", "!remove");
+		return Arrays.asList("!remove", "!rm");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override

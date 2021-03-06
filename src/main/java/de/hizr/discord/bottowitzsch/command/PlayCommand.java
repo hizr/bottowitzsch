@@ -25,6 +25,13 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class PlayCommand implements Command {
 
+	public static final String DESCRIPTION
+		= "Add's a track to the current playlist. If there is no playlist it will create one.\n"
+		  + "You can add a direct youtube link or search by the complete phrase.\n\n"
+		  + "Example:\n"
+		  + "'!p never gonna give you up' -> Searches on youtube for a video and plays the first result of the search.\n"
+		  + "'!p https://www.youtube.com/watch?v=dQw4w9WgXcQ' -> Plays exactly this video!";
+
 	private final BottowitzschContext context;
 	private final TrackIdentifier trackIdentifier;
 	private final CommandHelper helper;
@@ -32,6 +39,11 @@ public class PlayCommand implements Command {
 	@Override
 	public List<String> commands() {
 		return Arrays.asList("!play", "!p");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override

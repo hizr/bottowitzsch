@@ -18,12 +18,19 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class QueueCommand implements Command {
+	public static final String DESCRIPTION = "Prints the current playlist/queue.";
+
 	private final BottowitzschContext context;
 	private int trackNumber;
 
 	@Override
 	public List<String> commands() {
 		return Arrays.asList("!queue", "!q");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override

@@ -15,11 +15,18 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class JoinCommand implements Command {
+	public static final String DESCRIPTION = "Let me join your current voice channel.";
+
 	private final BottowitzschContext context;
 
 	@Override
 	public List<String> commands() {
 		return Arrays.asList("!join", "!j");
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 
 	@Override
