@@ -1,11 +1,14 @@
 package de.hizr.discord.bottowitzsch.player.trackidentifier.extractor;
 
+import static org.apache.commons.lang3.StringUtils.contains;
+import static org.apache.commons.lang3.StringUtils.remove;
+import static org.apache.commons.lang3.StringUtils.startsWith;
+import static org.springframework.util.ResourceUtils.isUrl;
+
 import java.util.Optional;
 
 import de.hizr.discord.bottowitzsch.command.Command;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 @Component
 public class YouTubeSearchExtractor implements LinkExtractor {
@@ -13,9 +16,9 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 	@Override
 	public Optional<String> extract(final String message, final Command command) {
 		final String commandWithSpace = getCommandWithSpace(message, command);
-		if (StringUtils.contains(message, commandWithSpace)) {
-			final String plainMsg = StringUtils.remove(message, commandWithSpace);
-			String value = ResourceUtils.isUrl(plainMsg) ? plainMsg : "ytsearch:" + plainMsg;
+		if (contains(message, commandWithSpace)) {
+			final String plainMsg = remove(message, commandWithSpace);
+			String value = isUrl(plainMsg) ? plainMsg.trim() : "ytsearch:" + plainMsg;
 			return Optional.of(value);
 		}
 		else {
@@ -25,7 +28,7 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 
 	private String getCommandWithSpace(final String message, final Command messageCommand) {
 		return messageCommand.commands().stream()
-			.filter(command -> StringUtils.startsWith(message, command + " "))
+			.filter(command -> startsWith(message, command + " "))
 			.findAny()
 			.orElseThrow(() -> new BottowitzschCommandException(
 				String.format("Command cant be extracted from message '%s'", message))
