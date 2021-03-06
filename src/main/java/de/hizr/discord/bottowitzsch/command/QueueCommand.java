@@ -83,7 +83,9 @@ public class QueueCommand implements Command {
 
 	private String getTitle(final AudioTrackInfo audioTrackInfo) {
 		final int maxSize = 50;
-		return audioTrackInfo.title.length() > maxSize ? StringUtils.contains(audioTrackInfo.title, maxSize) + "..." : audioTrackInfo.title;
+		return audioTrackInfo.title.length() > maxSize
+			? StringUtils.substring(audioTrackInfo.title, 0, maxSize) + "..."
+			: audioTrackInfo.title;
 	}
 
 	private String getDurationInMin(final AudioTrackInfo audioTrackInfo) {
