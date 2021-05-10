@@ -1,0 +1,10 @@
+[Unit]
+Description=Bottowitzsch Daemon
+
+[Service]
+ExecStart=/usr/bin/java -jar /opt/bottowitzsch/target/bottowitzsch-0.0.1-SNAPSHOT.jar --token="<YOUR BOT TOKEN>"
+StandardOutput=file:/opt/bottowitzsch/log/bottowitzsch.log
+User=<USER>
+
+[Install]
+WantedBy=multi-user.target
