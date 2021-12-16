@@ -25,7 +25,7 @@
 
   <repositories>
     <repository>
-      <id>central</id>
+      <id>lavaplayer</id>
       <name>bintray</name>
       <url>https://m2.dv8tion.net/releases</url>
     </repository>
@@ -45,6 +45,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <version>1.18.22</version>
       <optional>true</optional>
     </dependency>
     <dependency>

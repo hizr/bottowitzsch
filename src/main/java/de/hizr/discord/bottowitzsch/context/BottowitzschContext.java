@@ -7,14 +7,14 @@ import java.util.Optional;
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.Guild;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class BottowitzschContext {
 	public static final String NO_GUILD_ID_EXE_MSG = String.format("Requested %s requires guildId!", GuildContext.class.getSimpleName());
 
