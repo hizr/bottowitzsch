@@ -41,7 +41,7 @@ public class BottowitzschConfiguration {
 			}
 		}
 		catch (Exception exception) {
-			log.error("Be sure to use a valid bot token!", exception);
+			log.error(String.format("Be sure to use a valid bot token! Token found: '%s'", token), exception);
 		}
 
 		return client;
