@@ -6,8 +6,6 @@ name: maven-build
 on:
   push:
     branches: [ master, developer ]
-  pull_request:
-    branches: [ master, developer ]
 
 jobs:
   build:
