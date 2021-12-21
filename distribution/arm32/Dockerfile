@@ -1,7 +1,7 @@
 # Build
 FROM arm32v7/maven:3.6.1-jdk-11-slim AS builder
-COPY ../../src /home/botto/src
-COPY ../../pom.xml /home/botto
+COPY src /home/botto/src
+COPY pom.xml /home/botto
 RUN mvn -f /home/botto/pom.xml clean package
 
 # Bottowitzsch Container

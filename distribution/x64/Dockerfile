@@ -1,7 +1,7 @@
 # Build
 FROM maven:3.8-openjdk-17-slim AS builder
-COPY ../../src /home/botto/src
-COPY ../../pom.xml /home/botto
+COPY src /home/botto/src
+COPY pom.xml /home/botto
 RUN mvn -f /home/botto/pom.xml clean package
 
 # Bottowitzsch Container
