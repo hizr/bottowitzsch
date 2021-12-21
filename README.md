@@ -55,13 +55,13 @@ portal ([See this article for help](https://github.com/reactiflux/discord-irc/wi
 ```yaml
 version: '2'
 services:
-  bottowitzsch:
-    build:
-      context: ./bottowitzsch # path to bottowitzsch repo clone or download
-      dockerfile: Dockerfile
-    restart: always
-    environment:
-      - PUB_TOKEN=<PUB-TOKEN> # replace with the secret bot token
+   bottowitzsch:
+      build:
+         context: ./bottowitzsch # path to bottowitzsch repo clone or download
+         dockerfile: distribution/x64/Dockerfile
+      restart: always
+      environment:
+         - PUB_TOKEN=<PUB-TOKEN> # replace with the secret bot token
 ```
 Start the bot with ```docker-compose start bottowitzsch```.
 
