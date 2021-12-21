@@ -1,11 +1,11 @@
 # Build
-FROM arm32v7/maven:3.8.3-adoptopenjdk-16 AS builder
+FROM arm32v7/maven:3.6.1-jdk-11-slim AS builder
 COPY ../../src /home/botto/src
 COPY ../../pom.xml /home/botto
 RUN mvn -f /home/botto/pom.xml clean package
 
 # Bottowitzsch Container
-FROM openjdk:jdk-slim-buster
+FROM arm32v7/openjdk:jre-slim
 COPY --from=builder /home/botto/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 CMD ["--token=${PUB_TOKEN}"]
