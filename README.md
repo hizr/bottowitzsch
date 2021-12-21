@@ -24,18 +24,21 @@ There is no public host for this bot. You need to host it on your own. Thanks to
 no need to open any port because this bot is acting like a consumer of discords messages.
 
 ## Installation
+
 To host a discord bot you need to do the following steps:
+
 1. Create a discord developer account and create a bot application
 2. Build and host the bot
 3. Invite the Bot to your discord server
 
 ### Discord Developer account
-You need a [discord developer account](https://discord.com/developers/docs/intro) with a registered application which
+
+You need a [discord developer account](https://discord.com/developers/docs/intro) with a registered application which is
 defined as a bot. Follow the discord [documentation](https://discord.com/developers/docs/intro) to get the job
-done. [This is a pretty cool article of doing this](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
-.
+done. [This is a pretty cool article of doing this.](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
 
 ### Build the bot
+
 You need to build the application to use it. There will be no prepackaged release. There are two ways of doing this.
 
 1. Build the application with docker. Therefor docker and docker-compose must be installed. (recommended)
@@ -60,11 +63,11 @@ services:
     environment:
       - PUB_TOKEN=<PUB-TOKEN> # replace with the secret bot token
 ```
+Start the bot with ```docker-compose start bottowitzsch```.
 
 #### Plain Java
 
 Build bottowitzsch using maven
-
 ```shell
 mvn clean install
 ```
@@ -85,12 +88,19 @@ java -jar target/bottowitzsch.jar --spring.config.location=file:<path to your pr
 ```
 
 ### Invite the bot to your discord server
-After you have successfully created and hosted the bot, you have to invite him to you discord server. You can do this using the discord [Permission Calculator](https://discordapi.com/permissions.html#8).
-To do his job, the bot needs the following minimal permissions:
+
+After you have successfully created and hosted the bot, you have to invite him to you discord server. You can do this
+using the discord [Permission Calculator](https://discordapi.com/permissions.html#8). To do his job, the bot needs the
+following minimal permissions:
+
 * Send Messages
 * Speak
 
-To create the invitation link enter your bots Client ID you can find in you development account back in "General information" ([Another link to this awesome article](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token#adding-your-bot-to-your-server)).
+To create the invitation link enter your bots Client ID you can find in you development account back in "General
+information" ([Another link to this awesome article](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token#adding-your-bot-to-your-server))
+.
 
 ## Usage
-Connect to your discord server, join one of your voice channels, grand the Bot read rights to one of your text channels and write: ```!h``` or ```!help``` and the bot should answer with all commands he listens to.
+
+Connect to your discord server, join one of your voice channels, grand the Bot read rights to one of your text channels
+and write: ```!h``` or ```!help``` and the bot should answer with all commands he listens to.
