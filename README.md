@@ -47,15 +47,22 @@ You need to build the application to use it. There will be no prepackaged releas
 
 #### Docker Compose
 
-Create a docker-compose ```.env``` environment file add the following parameter:
+Create a docker-compose ```.env``` environment file in the project directory and add the following parameter.
 
 | Parameter  | Example                     | Description                                                                                                                                               |
 |------------|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | PUB_TOKEN  | ...                         | The secret bot Token. [See this article for help](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token#token-security) |
-| DOCKERFILE | distribution/x64/Dockerfile | The path to the dockerfile depending on you host                                                                                                          |
-| NAME       | master                      | This is used as a suffix for the container name. So you can run multiple bot instaces on one machine.                                                     |
+| DOCKERFILE | distribution/x64/Dockerfile | The path to the dockerfile, depending on your host system.                                                                                                |
+| NAME       | master                      | This is used as a suffix for the container name. So you can run multiple bot instances on one machine, without losing the overview.                       |
 
-Start the bot with ```docker-compose up -d```.
+Example ```.env```-File:
+```properties
+NAME=dev
+DOCKERFILE=distribution/x64/Dockerfile
+PUB_TOKEN=1m-4-53cr3t
+```
+
+Start the bot with ```docker-compose up --build -d```.
 
 #### Plain Java
 
