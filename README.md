@@ -47,23 +47,15 @@ You need to build the application to use it. There will be no prepackaged releas
 
 #### Docker Compose
 
-Create or use you existing docker-compose.yml and replace the <PUB-TOKEN> with the secret bot token you can find the the
-discord developer
-portal ([See this article for help](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token#token-security))
-.
+Create a docker-compose ```.env``` environment file add the following parameter:
 
-```yaml
-version: '2'
-services:
-   bottowitzsch:
-      build:
-         context: ./bottowitzsch # path to bottowitzsch repo clone or download
-         dockerfile: distribution/x64/Dockerfile
-      restart: always
-      environment:
-         - PUB_TOKEN=<PUB-TOKEN> # replace with the secret bot token
-```
-Start the bot with ```docker-compose start bottowitzsch```.
+| Parameter  | Example                     | Description                                                                                                                                               |
+|------------|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PUB_TOKEN  | ...                         | The secret bot Token. [See this article for help](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token#token-security) |
+| DOCKERFILE | distribution/x64/Dockerfile | The path to the dockerfile depending on you host                                                                                                          |
+| NAME       | master                      | This is used as a suffix for the container name. So you can run multiple bot instaces on one machine.                                                     |
+
+Start the bot with ```docker-compose up -d```.
 
 #### Plain Java
 

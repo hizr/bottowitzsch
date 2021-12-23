@@ -1,4 +1,5 @@
-# Build
+# Dockerfile for x64 based CPU's should work for the most systems. (See build badges in the README.md, for builds on most common operating systems)
+# Build Bottowitzsch
 FROM maven:3.8-openjdk-17-slim AS builder
 COPY src /home/botto/src
 COPY pom.xml /home/botto
