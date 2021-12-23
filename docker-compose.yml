@@ -3,6 +3,7 @@ services:
   bottowitzsch:
     container_name: ${NAME}
     build:
+      context: .
       dockerfile: ${DOCKERFILE}
     restart: always
     environment:
