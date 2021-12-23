@@ -3,8 +3,6 @@ name: docker-image
 on:
   push:
     branches: [ master, developer ]
-  pull_request:
-    branches: [ master, developer ]
 
 jobs:
 
@@ -15,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag bottowitzsch:$(date +%s)
+      run: docker build . --file ./distribution/x64/Dockerfile --tag bottowitzsch:$(date +%s)

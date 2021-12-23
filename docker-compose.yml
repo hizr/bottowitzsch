@@ -1,0 +1,10 @@
+version: '3'
+services:
+  bottowitzsch:
+    container_name: ${NAME}
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE}
+    restart: always
+    environment:
+      - PUB_TOKEN=${PUB_TOKEN}
