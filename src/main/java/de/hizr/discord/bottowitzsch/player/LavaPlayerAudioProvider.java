@@ -25,11 +25,9 @@ public final class LavaPlayerAudioProvider extends AudioProvider {
 	public boolean provide() {
 		// AudioPlayer writes audio data to the AudioFrame
 		final boolean didProvide = player.provide(frame);
-
 		if (didProvide) {
 			getBuffer().flip();
 		}
-
 		return didProvide;
 	}
 }

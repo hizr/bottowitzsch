@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class NextCommand implements Command {
-	public static final String DESCRIPTION = "Plays the next track if there is a playlist/queue. If not... does nothing.";
+	public static final String DESCRIPTION_TEXT = "Plays the next track if there is a playlist/queue. If not... does nothing.";
 
 	private final BottowitzschContext context;
 
@@ -24,7 +24,7 @@ public class NextCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override

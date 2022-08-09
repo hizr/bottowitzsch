@@ -17,7 +17,7 @@ public class BottowitzschAudioLoadResultHandler implements AudioLoadResultHandle
 
 	@Override
 	public void playlistLoaded(final AudioPlaylist playlist) {
-		if (playlist.getTracks().size() > 0) {
+		if (!playlist.getTracks().isEmpty()) {
 			final AudioTrack track = playlist.getTracks().get(0);
 			scheduler.play(track);
 		}

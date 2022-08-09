@@ -37,11 +37,9 @@ public final class AudioTrackScheduler extends AudioEventAdapter {
 
 	public boolean play(final AudioTrack track, final boolean force) {
 		final boolean playing = player.startTrack(track, !force);
-
 		if (!playing) {
 			queue.add(track);
 		}
-
 		return playing;
 	}
 

@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class QueueCommand implements Command {
-	public static final String DESCRIPTION = "Prints the current playlist/queue.";
+	public static final String DESCRIPTION_TEXT = "Prints the current playlist/queue.";
 
 	private final BottowitzschContext context;
 	private int trackNumber;
@@ -30,7 +30,7 @@ public class QueueCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class QueueCommand implements Command {
 		return Mono.just(event)
 			.flatMap(MessageCreateEvent::getGuild)
 			.flatMap(context::requestGuildContext)
-			.flatMap(context -> Mono.just(context.getTrackScheduler()))
+			.flatMap(guildContext -> Mono.just(guildContext.getTrackScheduler()))
 			.flatMap(scheduler -> Mono.just(scheduler.getQueue()));
 	}
 

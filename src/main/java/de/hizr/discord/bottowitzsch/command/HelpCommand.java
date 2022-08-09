@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class HelpCommand implements Command {
-	public static final String DESCRIPTION = "List all commands and there Description";
+	public static final String DESCRIPTION_TEXT = "List all commands and there Description";
 
 	private final List<Command> commands;
 
@@ -25,7 +25,7 @@ public class HelpCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override
