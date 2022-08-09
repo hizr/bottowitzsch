@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class PlayCommand implements Command {
 
-	public static final String DESCRIPTION
+	public static final String DESCRIPTION_TEXT
 		= "Add's a track to the current playlist. If there is no playlist it will create one.\n"
 		  + "You can add a direct youtube link or search by the complete phrase.\n\n"
 		  + "Example:\n"
@@ -43,7 +43,7 @@ public class PlayCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override
@@ -60,11 +60,11 @@ public class PlayCommand implements Command {
 	private Mono<Void> postTrack(final MessageCreateEvent event, final GuildContext guildContext) {
 		return Mono.justOrEmpty(event.getMessage())
 			.flatMap(Message::getChannel)
-			.flatMap(messageChannel -> messageChannel.createEmbed(spec -> createFounTrackMessage(spec, guildContext)))
+			.flatMap(messageChannel -> messageChannel.createEmbed(spec -> createTrackMessage(spec, guildContext)))
 			.then();
 	}
 
-	private void createFounTrackMessage(final EmbedCreateSpec spec, final GuildContext guildContext) {
+	private void createTrackMessage(final EmbedCreateSpec spec, final GuildContext guildContext) {
 		final AudioTrack audioTrack = guildContext.getTrackScheduler().getQueue().get(0);
 		final AudioTrackInfo info = audioTrack.getInfo();
 		final String uri = info.uri;

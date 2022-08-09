@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class JoinCommand implements Command {
-	public static final String DESCRIPTION = "Let me join your current voice channel.";
+	public static final String DESCRIPTION_TEXT = "Let me join your current voice channel.";
 
 	private final BottowitzschContext context;
 
@@ -26,7 +26,7 @@ public class JoinCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override

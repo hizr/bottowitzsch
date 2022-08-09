@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @Slf4j
 public class RemoveCommand implements Command {
-	public static final String DESCRIPTION
+	public static final String DESCRIPTION_TEXT
 		= "Removes a track from the playlist!\n\n"
 		  + "Example:\n"
 		  + "'!rm 1' -> Removes the next track if there is a next one.\n"
@@ -34,7 +34,7 @@ public class RemoveCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override

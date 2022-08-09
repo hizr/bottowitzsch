@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class ClearCommand implements Command {
-	public static final String DESCRIPTION = "Clears the current playlist.";
+	public static final String DESCRIPTION_TEXT = "Clears the current playlist.";
 
 	private final BottowitzschContext context;
 
@@ -24,7 +24,7 @@ public class ClearCommand implements Command {
 
 	@Override
 	public String description() {
-		return DESCRIPTION;
+		return DESCRIPTION_TEXT;
 	}
 
 	@Override
