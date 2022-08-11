@@ -2,7 +2,7 @@
 
 [![make test](https://github.com/hizr/bottowitzsch/workflows/maven-build/badge.svg)](https://github.com/hizr/bottowitzsch/actions/workflows/maven.yml?query=workflow%3Amaven-build+branch%3Amaster++)
 [![make test](https://github.com/hizr/bottowitzsch/workflows/docker-image/badge.svg)](https://github.com/hizr/bottowitzsch/actions?query=workflow%3Adocker-image+branch%3Amaster++)
-[![make test](https://github.com/hizr/bottowitzsch/workflows/docker-image/badge.svg)](https://github.com/hizr/bottowitzsch/actions?query=workflow%3Adocker-arm-image+branch%3Amaster++)
+[![make test](https://github.com/hizr/bottowitzsch/workflows/docker-arm-image/badge.svg)](https://github.com/hizr/bottowitzsch/actions?query=workflow%3Adocker-arm-image+branch%3Amaster++)
 
 **Table of Contents**
 
