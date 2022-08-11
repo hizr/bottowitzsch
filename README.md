@@ -67,7 +67,7 @@ Start the bot with the following command:
 docker-compose up --build -d
 ```
 
-#### 2.b Plain Java
+#### 2.b Plain Java (skip if you use docker-compose)
 
 Build bottowitzsch using maven
 ```shell
