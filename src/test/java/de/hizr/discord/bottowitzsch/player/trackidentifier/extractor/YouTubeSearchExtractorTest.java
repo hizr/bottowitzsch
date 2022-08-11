@@ -34,7 +34,6 @@ class YouTubeSearchExtractorTest {
 		// test
 		final Optional<String> extract = unitToTest.extract(msg, playCommand);
 		// assetion
-		assertThat(extract.isPresent()).isTrue();
-		assertThat(extract.get()).isEqualTo(expOutcome);
+		assertThat(extract).contains(expOutcome);
 	}
 }
