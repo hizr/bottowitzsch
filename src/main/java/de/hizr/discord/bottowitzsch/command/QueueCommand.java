@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.spec.EmbedCreateSpec;
@@ -20,11 +20,11 @@ import reactor.core.publisher.Mono;
 public class QueueCommand implements Command {
 	public static final String DESCRIPTION_TEXT = "Prints the current playlist/queue.";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 	private int trackNumber;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!queue", "!q");
 	}
 

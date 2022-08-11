@@ -28,7 +28,7 @@ class YouTubeSearchExtractorTest {
 	@MethodSource
 	public void testExtractor(String msg, String expOutcome) {
 		val playCommand = Mockito.mock(Command.class);
-		Mockito.when(playCommand.commands()).thenReturn(Arrays.asList("!play", "!p"));
+		Mockito.when(playCommand.messageHooks()).thenReturn(Arrays.asList("!play", "!p"));
 
 		val unitToTest = new YouTubeSearchExtractor();
 		// test

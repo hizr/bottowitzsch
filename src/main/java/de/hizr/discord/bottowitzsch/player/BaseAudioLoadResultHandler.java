@@ -7,7 +7,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BottowitzschAudioLoadResultHandler implements AudioLoadResultHandler {
+public class BaseAudioLoadResultHandler implements AudioLoadResultHandler {
 	private final AudioTrackScheduler scheduler;
 
 	@Override

@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
 import de.hizr.discord.bottowitzsch.context.GuildContext;
-import de.hizr.discord.bottowitzsch.player.BottowitzschAudioLoadResultHandler;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
+import de.hizr.discord.bottowitzsch.player.BaseAudioLoadResultHandler;
 import de.hizr.discord.bottowitzsch.player.trackidentifier.TrackIdentifier;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
@@ -32,12 +32,12 @@ public class PlayCommand implements Command {
 		  + "'!p never gonna give you up' -> Searches on youtube for a video and plays the first result of the search.\n"
 		  + "'!p https://www.youtube.com/watch?v=dQw4w9WgXcQ' -> Plays exactly this video!";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 	private final TrackIdentifier trackIdentifier;
 	private final CommandHelper helper;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!play", "!p");
 	}
 
@@ -87,7 +87,7 @@ public class PlayCommand implements Command {
 			.doOnNext(command -> guildContext.getAudioPlayerManager().loadItemOrdered(
 				guildContext,
 				trackIdentifier.identify(event.getMessage().getContent(), this).orElse(""),
-				new BottowitzschAudioLoadResultHandler(guildContext.getTrackScheduler())))
+				new BaseAudioLoadResultHandler(guildContext.getTrackScheduler())))
 			.then();
 	}
 }

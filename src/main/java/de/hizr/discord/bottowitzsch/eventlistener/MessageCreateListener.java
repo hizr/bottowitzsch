@@ -30,8 +30,8 @@ public class MessageCreateListener implements EventListener<MessageCreateEvent> 
 	}
 
 	private boolean isMatchingCommand(final String message, final Command messageCommand) {
-		return messageCommand.commands()
+		return messageCommand.messageHooks()
 			.stream()
-			.anyMatch(command -> StringUtils.startsWith(message, command));
+			.anyMatch(messageHook -> StringUtils.startsWith(message, messageHook));
 	}
 }

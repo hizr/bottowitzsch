@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,10 +15,10 @@ import reactor.core.publisher.Mono;
 public class StopCommand implements Command {
 	public static final String DESCRIPTION_TEXT = "Stops the current track. Resume playlist/queue with !n/!next.";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!stop", "!s");
 	}
 

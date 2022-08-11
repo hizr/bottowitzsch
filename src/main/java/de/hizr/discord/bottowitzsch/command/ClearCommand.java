@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,10 +15,10 @@ import reactor.core.publisher.Mono;
 public class ClearCommand implements Command {
 	public static final String DESCRIPTION_TEXT = "Clears the current playlist.";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!clear", "!c");
 	}
 
@@ -46,7 +46,7 @@ public class ClearCommand implements Command {
 		return Mono.just(event)
 			.flatMap(MessageCreateEvent::getGuild)
 			.flatMap(context::requestGuildContext)
-			.flatMap(context -> Mono.just(context.getTrackScheduler()))
+			.flatMap(guildContext -> Mono.just(guildContext.getTrackScheduler()))
 			.flatMap(scheduler -> Mono.just(scheduler.getQueue()))
 			.doOnSuccess(List::clear)
 			.then();

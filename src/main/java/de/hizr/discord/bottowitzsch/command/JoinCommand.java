@@ -3,7 +3,7 @@ package de.hizr.discord.bottowitzsch.command;
 import java.util.Arrays;
 import java.util.List;
 
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
@@ -17,10 +17,10 @@ import reactor.core.publisher.Mono;
 public class JoinCommand implements Command {
 	public static final String DESCRIPTION_TEXT = "Let me join your current voice channel.";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!join", "!j");
 	}
 

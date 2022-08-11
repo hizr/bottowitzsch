@@ -19,7 +19,7 @@ public class HelpCommand implements Command {
 	private final List<Command> commands;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!help", "!h");
 	}
 
@@ -41,8 +41,8 @@ public class HelpCommand implements Command {
 		spec.setTitle("All my commands:");
 
 		commands.forEach(command -> {
-			final String commands = command.commands().stream().map(Object::toString).collect(Collectors.joining(", "));
-			spec.addField(commands, command.description(), false);
+			final String messageHook = command.messageHooks().stream().map(Object::toString).collect(Collectors.joining(", "));
+			spec.addField(messageHook, command.description(), false);
 		});
 	}
 }
