@@ -105,4 +105,4 @@ information" ([Another link to this awesome article](https://github.com/reactifl
 ## Usage
 
 Connect to your discord server, join one of your voice channels, grand the Bot read rights to one of your text channels
-and write: ```!h``` or ```!help``` and the bot should answer with all commands he listens to.
+and write: ```!h``` or ```!help``` and the bot should answer with all commands he listens to. 
