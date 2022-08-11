@@ -1,0 +1,19 @@
+name: docker-image
+
+on:
+  push:
+    branches: [ master, developer ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pguyot/arm-runner-action@v2.4.0
+      - name: ARM runner
+        with:
+          base_image: raspios_lite:latest
+        run: docker build . --file ./distribution/arm32/Dockerfile --tag bottowitzsch:$(date +%s)
