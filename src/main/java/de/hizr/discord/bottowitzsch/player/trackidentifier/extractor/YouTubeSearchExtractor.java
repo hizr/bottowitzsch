@@ -27,10 +27,10 @@ public class YouTubeSearchExtractor implements LinkExtractor {
 	}
 
 	private String getCommandWithSpace(final String message, final Command messageCommand) {
-		return messageCommand.commands().stream()
+		return messageCommand.messageHooks().stream()
 			.filter(command -> startsWith(message, command + " "))
 			.findAny()
-			.orElseThrow(() -> new BottowitzschCommandException(
+			.orElseThrow(() -> new CommandException(
 				String.format("Command cant be extracted from message '%s'", message))
 			);
 	}

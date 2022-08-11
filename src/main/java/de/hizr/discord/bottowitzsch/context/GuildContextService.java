@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class BottowitzschContext {
+public class GuildContextService {
 	public static final String NO_GUILD_ID_EXE_MSG = String.format("Requested %s requires guildId!", GuildContext.class.getSimpleName());
 
 	private final GuildContextFactory guildContextFactory;
@@ -39,7 +39,7 @@ public class BottowitzschContext {
 			}
 		}
 		else {
-			throw new BottowitzschContextException(NO_GUILD_ID_EXE_MSG);
+			throw new GuildContextException(NO_GUILD_ID_EXE_MSG);
 		}
 	}
 }

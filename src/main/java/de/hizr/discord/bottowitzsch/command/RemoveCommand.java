@@ -3,9 +3,9 @@ package de.hizr.discord.bottowitzsch.command;
 import java.util.Arrays;
 import java.util.List;
 
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import de.hizr.discord.bottowitzsch.player.AudioTrackScheduler;
-import de.hizr.discord.bottowitzsch.player.trackidentifier.extractor.BottowitzschCommandException;
+import de.hizr.discord.bottowitzsch.player.trackidentifier.extractor.CommandException;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +24,11 @@ public class RemoveCommand implements Command {
 		  + "'!rm 1' -> Removes the next track if there is a next one.\n"
 		  + "'!rm 3' -> Removes the third following track from the current one.";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 	private final CommandHelper helper;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!remove", "!rm");
 	}
 
@@ -60,7 +60,7 @@ public class RemoveCommand implements Command {
 				scheduler.remove(index);
 			}
 			catch (Exception e) {
-				throw new BottowitzschCommandException(String.format("Cant remove index '%s'", content), e);
+				throw new CommandException(String.format("Cant remove index '%s'", content), e);
 			}
 		}
 	}

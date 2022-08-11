@@ -3,7 +3,7 @@ package de.hizr.discord.bottowitzsch.command;
 import java.util.Arrays;
 import java.util.List;
 
-import de.hizr.discord.bottowitzsch.context.BottowitzschContext;
+import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import de.hizr.discord.bottowitzsch.player.AudioTrackScheduler;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +15,10 @@ import reactor.core.publisher.Mono;
 public class NextCommand implements Command {
 	public static final String DESCRIPTION_TEXT = "Plays the next track if there is a playlist/queue. If not... does nothing.";
 
-	private final BottowitzschContext context;
+	private final GuildContextService context;
 
 	@Override
-	public List<String> commands() {
+	public List<String> messageHooks() {
 		return Arrays.asList("!next", "!n");
 	}
 
