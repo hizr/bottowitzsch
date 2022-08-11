@@ -62,7 +62,10 @@ DOCKERFILE=distribution/x64/Dockerfile
 PUB_TOKEN=1m-4-53cr3t
 ```
 
-Start the bot with ```docker-compose up --build -d```.
+Start the bot with the following command:
+```shell
+docker-compose up --build -d
+```
 
 #### Plain Java
 
