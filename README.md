@@ -31,13 +31,13 @@ To host a discord bot you need to do the following steps:
 2. Build and host the bot
 3. Invite the Bot to your discord server
 
-### Discord Developer account
+### 1. Create Discord developer account
 
 You need a [discord developer account](https://discord.com/developers/docs/intro) with a registered application which is
 defined as a bot. Follow the discord [documentation](https://discord.com/developers/docs/intro) to get the job
 done. [This is a pretty cool article of doing this.](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
 
-### Build the bot
+### 2. Build the bot
 
 You need to build the application to use it. There will be no prepackaged release. There are two ways of doing this.
 
@@ -45,7 +45,7 @@ You need to build the application to use it. There will be no prepackaged releas
 2. Build the application from scratch with maven. Therefor java (at least version 11) and maven 3.6 must be installed on
    your machine.
 
-#### Docker Compose
+#### 2.a Docker Compose (recommended)
 
 Create a docker-compose ```.env``` environment file in the project directory and add the following parameter.
 
@@ -67,7 +67,7 @@ Start the bot with the following command:
 docker-compose up --build -d
 ```
 
-#### Plain Java
+#### 2.b Plain Java
 
 Build bottowitzsch using maven
 ```shell
@@ -89,7 +89,7 @@ After the build was successful, start the bot with the following command.
 java -jar target/bottowitzsch.jar --spring.config.location=file:<path to your properties file>/bottowitzsch.properties
 ```
 
-### Invite the bot to your discord server
+### 3. Invite the bot to your discord server
 
 After you have successfully created and hosted the bot, you have to invite him to you discord server. You can do this
 using the discord [Permission Calculator](https://discordapi.com/permissions.html#8). To do his job, the bot needs the
