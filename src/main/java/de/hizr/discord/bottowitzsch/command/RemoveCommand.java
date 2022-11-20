@@ -9,14 +9,12 @@ import de.hizr.discord.bottowitzsch.player.trackidentifier.extractor.CommandExce
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class RemoveCommand implements Command {
 	public static final String DESCRIPTION_TEXT
 		= "Removes a track from the playlist!\n\n"
