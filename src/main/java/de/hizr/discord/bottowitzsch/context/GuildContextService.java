@@ -29,7 +29,7 @@ public class GuildContextService {
 		if (guildId.isPresent()) {
 			val rawGuildId = guildId.get();
 			if (contextMap.containsKey(rawGuildId)) {
-				log.debug("Requested Context {}", rawGuildId);
+				log.info("Requested Context {}", rawGuildId);
 				return contextMap.get(rawGuildId);
 			}
 			else {
