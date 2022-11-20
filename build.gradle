@@ -33,6 +33,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.13.RELEASE'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 group = 'de.hizr.discord'
 version = '0.0.1-SNAPSHOT'
 description = 'bottowitzsch'
