@@ -25,10 +25,10 @@ public class PlayCommand implements Command {
 
 	public static final String DESCRIPTION_TEXT
 		= "Add's a track to the current playlist. If there is no playlist it will create one.\n"
-		  + "You can add a direct youtube link or search by the complete phrase.\n\n"
-		  + "Example:\n"
-		  + "'!p never gonna give you up' -> Searches on youtube for a video and plays the first result of the search.\n"
-		  + "'!p https://www.youtube.com/watch?v=dQw4w9WgXcQ' -> Plays exactly this video!";
+		+ "You can add a direct youtube link or search by the complete phrase.\n\n"
+		+ "Example:\n"
+		+ "'!p never gonna give you up' -> Searches on youtube for a video and plays the first result of the search.\n"
+		+ "'!p https://www.youtube.com/watch?v=dQw4w9WgXcQ' -> Plays exactly this video!";
 
 	private final GuildContextService context;
 	private final TrackIdentifier trackIdentifier;
@@ -50,8 +50,12 @@ public class PlayCommand implements Command {
 
 		return Mono.first(joinChannel(event, guildContext))
 			.then(playMusic(event, guildContext))
-			.onErrorContinue((throwable, o) -> helper.handleError(throwable, "Something went wrong with play-Command", event))
-			// .then(postTrack(event, guildContext))
+			.onErrorContinue((throwable, o) -> helper.handleError(
+				throwable,
+				String.format("Something went wrong on play-Command with content :'%s'", event.getMessage().getContent()),
+				event))
+			//.then(postTrack(event, guildContext))
+			.then()
 			;
 	}
 
