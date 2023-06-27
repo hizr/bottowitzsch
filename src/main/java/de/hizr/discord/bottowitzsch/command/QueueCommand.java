@@ -8,7 +8,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import de.hizr.discord.bottowitzsch.context.GuildContextService;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
-import discord4j.core.spec.EmbedCreateSpec;
+import discord4j.core.spec.legacy.LegacyEmbedCreateSpec;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -63,7 +63,7 @@ public class QueueCommand implements Command {
 	}
 
 	private void buildQueueMsg(
-		final EmbedCreateSpec spec,
+		final LegacyEmbedCreateSpec spec,
 		final Mono<AudioTrackInfo> actualTrack,
 		final Mono<List<AudioTrack>> trackList
 	) {

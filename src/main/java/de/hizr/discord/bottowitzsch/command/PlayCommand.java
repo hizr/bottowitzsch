@@ -13,7 +13,7 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
-import discord4j.core.spec.EmbedCreateSpec;
+import discord4j.core.spec.legacy.LegacyEmbedCreateSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
@@ -66,7 +66,7 @@ public class PlayCommand implements Command {
 			.then();
 	}
 
-	private void createTrackMessage(final EmbedCreateSpec spec, final GuildContext guildContext) {
+	private void createTrackMessage(final LegacyEmbedCreateSpec spec, final GuildContext guildContext) {
 		final AudioTrack audioTrack = guildContext.getTrackScheduler().getQueue().get(0);
 		final AudioTrackInfo info = audioTrack.getInfo();
 		final String uri = info.uri;

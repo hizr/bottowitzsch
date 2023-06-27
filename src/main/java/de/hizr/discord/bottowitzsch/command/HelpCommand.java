@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.spec.EmbedCreateSpec;
+import discord4j.core.spec.legacy.LegacyEmbedCreateSpec;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -37,7 +38,7 @@ public class HelpCommand implements Command {
 			.then();
 	}
 
-	private void createHelpSpec(final EmbedCreateSpec spec) {
+	private void createHelpSpec(final LegacyEmbedCreateSpec spec) {
 		spec.setTitle("All my commands:");
 
 		commands.forEach(command -> {
