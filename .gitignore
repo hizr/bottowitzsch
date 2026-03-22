@@ -35,3 +35,6 @@ build/
 ### Docker
 .env
 /logs/
+
+### Node
+node_modules/
